@@ -11,14 +11,14 @@ compile_error!("select USB mode feature (fs/hs)");
 mod endpoint;
 mod endpoint_memory;
 
-mod target;
+pub mod target;
 
 /// USB peripheral driver.
 pub mod bus;
 
 pub use crate::bus::UsbBus;
 
-mod ral;
+pub mod ral;
 mod transition;
 
 /// A trait for device-specific USB peripherals. Implement this to add support for a new hardware

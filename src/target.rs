@@ -7,7 +7,7 @@ pub use cortex_m::interrupt;
 #[cfg(feature = "riscv")]
 pub use riscv::interrupt;
 
-use crate::ral::{otg_global, otg_device, otg_pwrclk, otg_global_dieptxfx, endpoint_in, endpoint0_out, endpoint_out};
+use crate::ral::{otg_global, otg_host, otg_device, otg_pwrclk, otg_global_dieptxfx, endpoint_in, endpoint0_out, endpoint_out};
 use crate::UsbPeripheral;
 use crate::ral::register::RWRegister;
 
@@ -46,9 +46,19 @@ impl UsbRegisters {
         Self(USB::REGISTERS as usize)
     }
 
+    // base is typically 0x5000_0000
+    pub fn from_base_ptr(base: usize) -> Self {
+        Self(base)
+    }
+
     #[inline(always)]
     pub fn global(&self) -> &'static otg_global::RegisterBlock {
         unsafe { &*(self.0 as *const _) }
+    }
+
+    #[inline(always)]
+    pub fn host(&self) -> &'static otg_host::RegisterBlock {
+        unsafe { &*((self.0 + 0x400) as *const _) }
     }
 
     #[inline(always)]

@@ -18,6 +18,17 @@ pub mod otg_global {
     pub use super::stm32f429::otg_hs_global::OTG_HS_GLOBAL as OTG_GLOBAL;
 }
 
+pub mod otg_host {
+    #[cfg(feature = "fs")]
+    pub use super::stm32f429::otg_fs_host::*;
+    #[cfg(feature = "hs")]
+    pub use super::stm32f429::otg_hs_host::*;
+    #[cfg(feature = "fs")]
+    pub use super::stm32f429::otg_fs_host::OTG_FS_HOST as OTG_HOST;
+    #[cfg(feature = "hs")]
+    pub use super::stm32f429::otg_hs_host::OTG_HS_HOST as OTG_HOST;
+}
+
 pub mod otg_device {
     #[cfg(feature = "fs")]
     pub use super::stm32f429::otg_fs_device::*;
